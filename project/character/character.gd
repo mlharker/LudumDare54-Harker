@@ -14,22 +14,15 @@ var tool_dir
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		if get_platform_velocity().y < 0:
+			position.y += get_platform_velocity().y * delta - gravity
 	move_horizontal()
 	jump_control()
-	animate_character()
 	move_and_slide()
 	if tool != null:
 		tool_orbit()
 		tool.move_and_slide()
 		drop_tool()
-	
-
-func animate_character():
-	#Changes what animation plays based on character's movement
-	if velocity.x != 0 and velocity.y == 0:
-		$AnimatedSprite2D.play("walk")
-	elif velocity.x == 0 and velocity.y == 0:
-		$AnimatedSprite2D.play("idle")
 
 
 func move_horizontal():
@@ -38,12 +31,15 @@ func move_horizontal():
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if direction == 1:
+		$AnimatedSprite2D.play("right")
+	elif direction == -1:
+		$AnimatedSprite2D.play("left")
 
 
 func jump_control():
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		$AnimatedSprite2D.play("jump")
 
 
 func tool_orbit():

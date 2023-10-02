@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://cno1gp7sxu3bu"]
+
+[ext_resource type="Script" path="res://lift/lift.gd" id="1_531i5"]
+[ext_resource type="Texture2D" uid="uid://dig2plqic6aqj" path="res://lift/lift.png" id="1_ya7pr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th03o"]
+size = Vector2(91, 24)
+
+[sub_resource type="Animation" id="Animation_pnk38"]
+resource_name = "rise_and_fall"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -400), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_q4aad"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_orptf"]
+_data = {
+"RESET": SubResource("Animation_q4aad"),
+"rise_and_fall": SubResource("Animation_pnk38")
+}
+
+[node name="Lift" type="AnimatableBody2D"]
+script = ExtResource("1_531i5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ya7pr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_th03o")
+one_way_collision = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_orptf")
+}

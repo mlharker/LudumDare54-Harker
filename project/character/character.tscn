@@ -1,83 +1,62 @@
-[gd_scene load_steps=10 format=3 uid="uid://mcluh1ax50an"]
+[gd_scene load_steps=7 format=3 uid="uid://mcluh1ax50an"]
 
 [ext_resource type="Script" path="res://character/character.gd" id="1_2yqqn"]
-[ext_resource type="Texture2D" uid="uid://p84cp3trk4xu" path="res://character/character_sprite.png" id="2_jijc3"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nx6ck"]
-atlas = ExtResource("2_jijc3")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5pb85"]
-atlas = ExtResource("2_jijc3")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f2qyg"]
-atlas = ExtResource("2_jijc3")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_liahx"]
-atlas = ExtResource("2_jijc3")
-region = Rect2(0, 32, 32, 32)
+[ext_resource type="Texture2D" uid="uid://c4ypnqytjo228" path="res://character/left.png" id="2_es880"]
+[ext_resource type="Texture2D" uid="uid://cnac85qm0tpi4" path="res://character/right.png" id="3_meneu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dy7k8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nx6ck")
+"texture": ExtResource("2_es880")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"left",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5pb85")
-}],
-"loop": false,
-"name": &"jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f2qyg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_liahx")
+"texture": ExtResource("3_meneu")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"right",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj6eq"]
-size = Vector2(20, 38)
+size = Vector2(20, 53)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7yovv"]
-size = Vector2(53, 48)
+size = Vector2(53, 59)
 
 [node name="Character" type="CharacterBody2D"]
 script = ExtResource("1_2yqqn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(3, 2)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_dy7k8")
-animation = &"walk"
-offset = Vector2(0, -7)
+animation = &"left"
+offset = Vector2(0, -60)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -21)
+position = Vector2(0, -28.5)
 shape = SubResource("RectangleShape2D_pj6eq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -7)
+enabled = false
 zoom = Vector2(3, 3)
+limit_left = 5
+limit_top = 15
+limit_right = 1200
+limit_bottom = 530
 
 [node name="Pickup" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup"]
-position = Vector2(0.5, -25)
+position = Vector2(0.5, -30.5)
 shape = SubResource("RectangleShape2D_7yovv")
 
 [connection signal="body_entered" from="Pickup" to="." method="_on_pickup_body_entered"]
