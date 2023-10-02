@@ -4,11 +4,13 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 signal died
+signal on_item_drop
 var tool: CharacterBody2D = null
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var perimeter_radius := 30
 var tool_dir
+var dead = false
 
 
 func _physics_process(delta):
@@ -16,9 +18,10 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		if get_platform_velocity().y < 0:
 			position.y += get_platform_velocity().y * delta - gravity
-	move_horizontal()
-	jump_control()
-	move_and_slide()
+	if dead != true:
+		move_horizontal()
+		jump_control()
+		move_and_slide()
 	if tool != null:
 		tool_orbit()
 		tool.move_and_slide()
@@ -50,11 +53,20 @@ func tool_orbit():
 
 func drop_tool():
 	if Input.is_action_just_pressed("drop"):
+		if tool.is_in_group("tool"):
+			tool.in_use = false
 		tool = null
 
 func _on_pickup_body_entered(body):
 	if body is CharacterBody2D:
 		tool = body
-	elif body.is_in_group("spikes"):
-		died.emit()
-		print("die")
+	if body.is_in_group("tool"):
+		tool.in_use = true
+	else:
+		on_item_drop.emit()
+		if body.is_in_group("spikes"):
+			died.emit()
+			drop_tool()
+			rotation_degrees = 90
+			dead = true
+			

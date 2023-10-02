@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwvi3r3u6r6ds"]
+[gd_scene load_steps=4 format=3 uid="uid://dwvi3r3u6r6ds"]
 
 [ext_resource type="Texture2D" uid="uid://c7wauemw2lb4p" path="res://key/key.png" id="1_d2f5e"]
+[ext_resource type="Script" path="res://key/key.gd" id="1_uwef6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u4bo"]
 size = Vector2(37, 102)
 
-[node name="Key" type="CharacterBody2D"]
+[node name="Key" type="CharacterBody2D" groups=["key"]]
 rotation = -1.5708
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
+script = ExtResource("1_uwef6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.35, 0.35)

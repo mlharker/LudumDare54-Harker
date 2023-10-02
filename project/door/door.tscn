@@ -1,18 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://be0owcg4f2yvi"]
+[gd_scene load_steps=10 format=3 uid="uid://be0owcg4f2yvi"]
 
+[ext_resource type="Script" path="res://door/door.gd" id="1_a32oj"]
 [ext_resource type="Texture2D" uid="uid://c84k3lmlipcwa" path="res://door/door.png" id="1_q1fs5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rquj8"]
 atlas = ExtResource("1_q1fs5")
 region = Rect2(0, 0, 256, 256)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_clkvt"]
+atlas = ExtResource("1_q1fs5")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vdox"]
+atlas = ExtResource("1_q1fs5")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uw54"]
+atlas = ExtResource("1_q1fs5")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veeah"]
+atlas = ExtResource("1_q1fs5")
+region = Rect2(256, 256, 256, 256)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_vnppo"]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"close",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rquj8")
@@ -21,8 +33,20 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [],
-"loop": true,
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clkvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vdox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uw54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_veeah")
+}],
+"loop": false,
 "name": &"open",
 "speed": 5.0
 }]
@@ -31,11 +55,12 @@ animations = [{
 size = Vector2(58, 103)
 
 [node name="Door" type="StaticBody2D"]
+script = ExtResource("1_a32oj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.75)
 sprite_frames = SubResource("SpriteFrames_vnppo")
-animation = &"idle"
+animation = &"open"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5.5)
