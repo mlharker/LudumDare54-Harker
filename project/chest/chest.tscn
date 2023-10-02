@@ -1,19 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://buoc1ip72vmy3"]
+[gd_scene load_steps=4 format=3 uid="uid://buoc1ip72vmy3"]
 
+[ext_resource type="Script" path="res://chest/chest.gd" id="1_55plw"]
 [ext_resource type="Texture2D" uid="uid://b7njpvu6g4fyt" path="res://chest/chest.png" id="1_qg7fi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2elq"]
-size = Vector2(56, 67)
+size = Vector2(66, 60)
 
-[node name="Chest" type="StaticBody2D"]
+[node name="Chest" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("1_55plw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_qg7fi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1.5)
+position = Vector2(0.5, 2)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_v2elq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

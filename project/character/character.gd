@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-signal _on_tool_acquired
+signal died
 var tool: CharacterBody2D = null
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -55,3 +55,6 @@ func drop_tool():
 func _on_pickup_body_entered(body):
 	if body is CharacterBody2D:
 		tool = body
+	elif body.is_in_group("spikes"):
+		died.emit()
+		print("die")

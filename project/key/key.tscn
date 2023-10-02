@@ -6,14 +6,17 @@
 size = Vector2(37, 102)
 
 [node name="Key" type="CharacterBody2D"]
+rotation = -1.5708
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_d2f5e")
 offset = Vector2(12, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, -14)
+position = Vector2(0, -2)
+scale = Vector2(0.35, 0.35)
 shape = SubResource("RectangleShape2D_7u4bo")

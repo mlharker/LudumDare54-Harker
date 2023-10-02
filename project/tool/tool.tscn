@@ -9,7 +9,7 @@ size = Vector2(19, 6)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ouru"]
 size = Vector2(5, 20.5)
 
-[node name="Tool" type="CharacterBody2D"]
+[node name="Tool" type="CharacterBody2D" groups=["tool"]]
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
